@@ -68,4 +68,13 @@ public class Subscription extends AuditModel {
         this.price = price;
         return this;
     }
+
+    public User getUser() {
+        return user;
+    }
+
+    public Subscription setUser(User user) {
+        this.user = user;
+        return this;
+    }
 }

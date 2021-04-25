@@ -39,7 +39,7 @@ public class CreditCardServiceImpl implements CreditCardService {
                         "CreditCard", "Id", creditCardId));
         return creditCardRepository.save(
                 creditCard.setCardNumber(creditCardRequest.getCardNumber())
-                        .setCardCcv(creditCardRequest.getCardCcv()));
+                        .setCardCvv(creditCardRequest.getCardCvv()));
     }
 
     @Override

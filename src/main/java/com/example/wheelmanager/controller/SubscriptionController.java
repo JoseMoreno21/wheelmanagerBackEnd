@@ -42,14 +42,15 @@ public class SubscriptionController {
         return convertToResource(subscriptionService.getSubscriptionById(subscriptionId));
     }
 
-    @PostMapping("/subscriptions")
-    public SubscriptionResource createSubscription(@Valid @RequestBody SaveSubscriptionResource resource){
+    @PostMapping("/users/{userId}/subscriptions")
+    public SubscriptionResource createSubscription(@PathVariable(value = "userId") Long userId,
+            @Valid @RequestBody SaveSubscriptionResource resource){
         Subscription subscription = convertToEntity(resource);
-        return  convertToResource(subscriptionService.createSubscription(subscription));
+        return  convertToResource(subscriptionService.createSubscription(userId, subscription));
     }
 
     @PutMapping("/subscriptions/{subscriptionId}")
-    public SubscriptionResource createSubscription(@PathVariable Long subscriptionId, @Valid @RequestBody SaveSubscriptionResource resource){
+    public SubscriptionResource updateSubscription(@PathVariable Long subscriptionId, @Valid @RequestBody SaveSubscriptionResource resource){
         Subscription subscription = convertToEntity(resource);
         return  convertToResource(subscriptionService.updateSubscription(subscriptionId,subscription));
     }

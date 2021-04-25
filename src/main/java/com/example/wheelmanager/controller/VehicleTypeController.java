@@ -38,7 +38,7 @@ public class VehicleTypeController {
     }
 
     @GetMapping("/vehicletypes/{vehicleTypeId}")
-    public VehicleTypeResource getVehicleTypeById(@PathVariable(value = "vehicletypeId")Long vehicleTypeId){
+    public VehicleTypeResource getVehicleTypeById(@PathVariable(value = "vehicleTypeId")Long vehicleTypeId){
         return convertToResource(vehicleTypeService.getVehicleTypeById(vehicleTypeId));
     }
 

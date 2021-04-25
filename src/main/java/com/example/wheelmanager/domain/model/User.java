@@ -7,6 +7,7 @@ import org.hibernate.annotations.OnDeleteAction;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Table(name = "users")
@@ -54,6 +55,9 @@ public class User extends AuditModel {
     @OnDelete(action = OnDeleteAction.CASCADE)
     @JsonIgnore
     private Address address;
+
+    @OneToMany(mappedBy = "user")
+    private List<Subscription> subscriptionList;
 
     public Long getId() {
         return id;
@@ -142,6 +146,15 @@ public class User extends AuditModel {
 
     public User setBirthDay(Date birthDay) {
         this.birthDay = birthDay;
+        return this;
+    }
+
+    public List<Subscription> getSubscriptions() {
+        return subscriptionList;
+    }
+
+    public User setSubscriptions(List<Subscription> subscriptions) {
+        this.subscriptionList = subscriptions;
         return this;
     }
 }

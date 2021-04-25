@@ -6,7 +6,7 @@ public class SaveCreditCardResource {
     @NotNull
     private String cardNumber;
     @NotNull
-    private String cardCcv;
+    private String cardCvv;
 
 
     public String getCardNumber() {
@@ -19,12 +19,12 @@ public class SaveCreditCardResource {
     }
 
 
-    public String getCardCcv() {
-        return cardCcv;
+    public String getCardCvv() {
+        return cardCvv;
     }
 
-    public SaveCreditCardResource setCardCcv(String cardCcv) {
-        this.cardCcv = cardCcv;
+    public SaveCreditCardResource setCardCvv(String cardCvv) {
+        this.cardCvv = cardCvv;
         return this;
     }
 }

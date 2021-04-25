@@ -42,6 +42,7 @@ public class VehicleTypeServiceImpl implements VehicleTypeService {
     public ResponseEntity<?> deleteVehicleType(Long vehicleTypeId) {
         VehicleType vehicleType = vehicleTypeRepository.findById(vehicleTypeId)
                 .orElseThrow(() -> new ResourceNotFoundException("VehicleType", "Id",vehicleTypeId));
+        vehicleTypeRepository.delete(vehicleType);
         return ResponseEntity.ok().build();
     }
 }

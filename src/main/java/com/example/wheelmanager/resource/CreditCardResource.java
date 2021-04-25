@@ -8,7 +8,7 @@ public class CreditCardResource extends AuditModel {
     private Long id;
     private String cardNumber;
     private Date expirationDate;
-    private String cardCcv;
+    private String cardCvv;
 
     public Long getId() {
         return id;
@@ -37,12 +37,12 @@ public class CreditCardResource extends AuditModel {
         return this;
     }
 
-    public String getCardCcv() {
-        return cardCcv;
+    public String getCardCvv() {
+        return cardCvv;
     }
 
-    public CreditCardResource setCardCcv(String cardCcv) {
-        this.cardCcv = cardCcv;
+    public CreditCardResource setCardCvv(String cardCvv) {
+        this.cardCvv = cardCvv;
         return this;
     }
 

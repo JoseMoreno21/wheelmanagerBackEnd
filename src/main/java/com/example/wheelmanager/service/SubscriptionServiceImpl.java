@@ -2,18 +2,24 @@ package com.example.wheelmanager.service;
 
 import com.example.wheelmanager.domain.model.Subscription;
 import com.example.wheelmanager.domain.repository.SubscriptionRepository;
+import com.example.wheelmanager.domain.repository.UserRepository;
 import com.example.wheelmanager.domain.service.SubscriptionService;
 import com.example.wheelmanager.exception.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class SubscriptionServiceImpl implements SubscriptionService {
     @Autowired
     private SubscriptionRepository subscriptionRepository;
+    @Autowired
+    private UserRepository userRepository;
 
 
     @Override
@@ -29,9 +35,12 @@ public class SubscriptionServiceImpl implements SubscriptionService {
     }
 
     @Override
-    public Subscription createSubscription(Subscription subscriptionId) {
+    public Subscription createSubscription(Long userId, Subscription subscription) {
 
-        return subscriptionRepository.save(subscriptionId);
+        return userRepository.findById(userId).map(user -> {
+            subscription.setUser(user);
+            return subscriptionRepository.save(subscription);
+        }).orElseThrow(() -> new ResourceNotFoundException( "User", "Id", userId));
     }
 
     @Override

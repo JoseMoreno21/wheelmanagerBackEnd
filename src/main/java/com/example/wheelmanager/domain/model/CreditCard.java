@@ -22,7 +22,7 @@ public class CreditCard extends AuditModel {
     private Date expirationDate;
 
     @NotNull
-    private String cardCcv;
+    private String cardCvv;
 
     public Long getId() {
         return id;
@@ -51,12 +51,12 @@ public class CreditCard extends AuditModel {
         return this;
     }
 
-    public String getCardCcv() {
-        return cardCcv;
+    public String getCardCvv() {
+        return cardCvv;
     }
 
-    public CreditCard setCardCcv(String cardCcv) {
-        this.cardCcv = cardCcv;
+    public CreditCard setCardCvv(String cardCvv) {
+        this.cardCvv = cardCvv;
         return this;
     }
 }
