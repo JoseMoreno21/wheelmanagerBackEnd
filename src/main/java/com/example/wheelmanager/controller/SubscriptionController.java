@@ -49,15 +49,17 @@ public class SubscriptionController {
         return  convertToResource(subscriptionService.createSubscription(userId, subscription));
     }
 
-    @PutMapping("/subscriptions/{subscriptionId}")
-    public SubscriptionResource updateSubscription(@PathVariable Long subscriptionId, @Valid @RequestBody SaveSubscriptionResource resource){
+    @PutMapping("/users/{userId}/subscriptions/{subscriptionId}")
+    public SubscriptionResource updateSubscription(@PathVariable (value = "userId") Long userId,
+                                                   @PathVariable Long subscriptionId, @Valid @RequestBody SaveSubscriptionResource resource){
         Subscription subscription = convertToEntity(resource);
-        return  convertToResource(subscriptionService.updateSubscription(subscriptionId,subscription));
+        return  convertToResource(subscriptionService.updateSubscription(userId, subscriptionId,subscription));
     }
 
-    @DeleteMapping("/subscriptions/{subscriptionId}")
-    public ResponseEntity<?> deleteSubscription(@PathVariable Long subscriptionId){
-        return subscriptionService.deleteSubscription(subscriptionId);
+    @DeleteMapping("/users/{userId}/subscriptions/{subscriptionId}")
+    public ResponseEntity<?> deleteSubscription( @PathVariable (value = "userId") Long userId,
+                                                 @PathVariable Long subscriptionId){
+        return subscriptionService.deleteSubscription(userId, subscriptionId);
     }
 
     private Subscription convertToEntity(SaveSubscriptionResource resource){

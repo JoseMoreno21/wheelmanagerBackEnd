@@ -157,4 +157,22 @@ public class User extends AuditModel {
         this.subscriptionList = subscriptions;
         return this;
     }
+
+    public CreditCard getCreditCard() {
+        return creditCard;
+    }
+
+    public User setCreditCard(CreditCard creditCard) {
+        this.creditCard = creditCard;
+        return this;
+    }
+
+    public Address getAddress() {
+        return address;
+    }
+
+    public User setAddress(Address address) {
+        this.address = address;
+        return this;
+    }
 }

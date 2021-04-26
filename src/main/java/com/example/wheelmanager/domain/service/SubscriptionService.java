@@ -10,6 +10,6 @@ public interface SubscriptionService {
     //Subscription getSubscriptionByUserId(Long userId);
     Subscription getSubscriptionById(Long subscriptionId);
     Subscription createSubscription(Long userId, Subscription subscriptionId);
-    Subscription updateSubscription(Long subscriptionId, Subscription messageRequest);
-    ResponseEntity<?> deleteSubscription(Long subscriptionId);
+    Subscription updateSubscription(Long userId, Long subscriptionId, Subscription messageRequest);
+    ResponseEntity<?> deleteSubscription(Long userId, Long subscriptionId);
 }
