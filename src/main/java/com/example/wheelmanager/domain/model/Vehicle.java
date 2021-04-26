@@ -98,4 +98,40 @@ public class Vehicle extends AuditModel {
         return this;
     }
 
+    public Brand getBrand() {
+        return brand;
+    }
+
+    public Vehicle setBrand(Brand brand) {
+        this.brand = brand;
+        return this;
+    }
+
+    public Status getStatus() {
+        return status;
+    }
+
+    public Vehicle setStatus(Status status) {
+        this.status = status;
+        return this;
+    }
+
+    public VehicleType getVehicleType() {
+        return vehicleType;
+    }
+
+    public Vehicle setVehicleType(VehicleType vehicleType) {
+        this.vehicleType = vehicleType;
+        return this;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public Vehicle setUser(User user) {
+        this.user = user;
+        return this;
+    }
+
 }

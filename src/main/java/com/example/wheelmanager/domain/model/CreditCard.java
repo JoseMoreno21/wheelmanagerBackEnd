@@ -1,5 +1,8 @@
 package com.example.wheelmanager.domain.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 import org.springframework.data.annotation.CreatedDate;
 
 import javax.persistence.*;
@@ -23,6 +26,13 @@ public class CreditCard extends AuditModel {
 
     @NotNull
     private String cardCvv;
+
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "user_id", nullable = false)
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    @JsonIgnore
+    private User user;
+
 
     public Long getId() {
         return id;
@@ -57,6 +67,16 @@ public class CreditCard extends AuditModel {
 
     public CreditCard setCardCvv(String cardCvv) {
         this.cardCvv = cardCvv;
+        return this;
+    }
+
+
+    public User getUser() {
+        return user;
+    }
+
+    public CreditCard setUser(User user) {
+        this.user = user;
         return this;
     }
 }

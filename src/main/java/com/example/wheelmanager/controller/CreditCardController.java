@@ -42,25 +42,26 @@ public class CreditCardController {
         return convertToResource(creditCardService.getCreditCardById(creditCardId));
     }
 
-    @PostMapping("/creditcards")
-    public CreditCardResource createCreditCard(
+    @PostMapping("/users/{userId}/creditcards")
+    public CreditCardResource createCreditCard(@PathVariable(value = "userId") Long userId,
             @Valid @RequestBody SaveCreditCardResource resource) {
         CreditCard creditCard = convertToEntity(resource);
-        return convertToResource(creditCardService.createCreditCard(creditCard));
+        return convertToResource(creditCardService.createCreditCard(userId, creditCard));
 
     }
 
-    @PutMapping("/creditcards/{creditCardId}")
-    public CreditCardResource updateCreditCard(@PathVariable Long creditCardId,
-                                               @Valid @RequestBody SaveCreditCardResource resource) {
+    @PutMapping("/users/{userId}/creditcards/{creditCardId}")
+    public CreditCardResource updateCreditCard(@PathVariable (value = "userId") Long userId,
+            @PathVariable Long creditCardId, @Valid @RequestBody SaveCreditCardResource resource) {
         CreditCard creditCard = convertToEntity(resource);
         return convertToResource(
-                creditCardService.updateCreditCard(creditCardId, creditCard));
+                creditCardService.updateCreditCard(userId, creditCardId, creditCard));
     }
 
-    @DeleteMapping("/creditcards/{creditCardId}")
-    public ResponseEntity<?> deleteCreditCard(@PathVariable Long creditCardId) {
-        return creditCardService.deleteCreditCard(creditCardId);
+    @DeleteMapping("/users/{userId}/creditcards/{creditCardId}")
+    public ResponseEntity<?> deleteCreditCard(@PathVariable (value = "userId") Long userId,
+                                              @PathVariable Long creditCardId) {
+        return creditCardService.deleteCreditCard(userId, creditCardId);
     }
 
     private CreditCard convertToEntity(SaveCreditCardResource resource) {

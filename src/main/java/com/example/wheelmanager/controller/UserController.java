@@ -42,25 +42,26 @@ public class UserController {
         return convertToResource(userService.getUserById(userId));
     }
 
-    @PostMapping("/users")
-    public UserResource createUser(
+    @PostMapping("/addresses/{addressId}/users")
+    public UserResource createUser(@PathVariable(value = "addressId") Long addressId,
             @Valid @RequestBody SaveUserResource resource) {
         User user = convertToEntity(resource);
-        return convertToResource(userService.createUser(user));
+        return convertToResource(userService.createUser(addressId, user));
 
     }
 
-    @PutMapping("/users/{userId}")
-    public UserResource updateUser(@PathVariable Long userId,
-                                       @Valid @RequestBody SaveUserResource resource) {
+    @PutMapping("/addresses/{addressId}/users/{userId}")
+    public UserResource updateUser(@PathVariable (value = "addressId") Long addressId,
+            @PathVariable Long userId, @Valid @RequestBody SaveUserResource resource) {
         User user = convertToEntity(resource);
         return convertToResource(
-                userService.updateUser(userId, user));
+                userService.updateUser(addressId, userId, user));
     }
 
-    @DeleteMapping("/users/{userId}")
-    public ResponseEntity<?> deleteUser(@PathVariable Long userId) {
-        return userService.deleteUser(userId);
+    @DeleteMapping("/addresses/{addressId}/users/{userId}")
+    public ResponseEntity<?> deleteUser(@PathVariable (value = "addressId") Long addressId,
+                                        @PathVariable Long userId) {
+        return userService.deleteUser(addressId, userId);
     }
 
     private User convertToEntity(SaveUserResource resource) {

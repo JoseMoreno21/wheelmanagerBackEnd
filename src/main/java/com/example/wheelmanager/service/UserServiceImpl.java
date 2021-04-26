@@ -1,6 +1,7 @@
 package com.example.wheelmanager.service;
 
 import com.example.wheelmanager.domain.model.User;
+import com.example.wheelmanager.domain.repository.AddressRepository;
 import com.example.wheelmanager.domain.repository.UserRepository;
 import com.example.wheelmanager.domain.service.UserService;
 import com.example.wheelmanager.exception.ResourceNotFoundException;
@@ -15,6 +16,8 @@ import org.springframework.stereotype.Service;
 public class UserServiceImpl implements UserService {
     @Autowired
     private UserRepository userRepository;
+    @Autowired
+    private AddressRepository addressRepository;
 
     @Override
     public Page<User> getAllUsers(Pageable pageable)
@@ -31,10 +34,18 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User createUser(User user) { return userRepository.save(user); }
+    public User createUser(Long addressId, User user) {
+        return addressRepository.findById(addressId).map(address -> {
+            user.setAddress(address);
+            return userRepository.save(user);
+        }).orElseThrow(() -> new ResourceNotFoundException( "Address", "Id", addressId));
+    }
 
     @Override
-    public User updateUser(Long userId, User userRequest) {
+    public User updateUser(Long addressId, Long userId, User userRequest) {
+        if(!addressRepository.existsById(addressId))
+            throw new ResourceNotFoundException("Address" + "Id" + addressId);
+
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new ResourceNotFoundException(
                         "User", "Id", userId));
@@ -50,11 +61,10 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public ResponseEntity<?> deleteUser(Long userId) {
-        User user = userRepository.findById(userId)
-                .orElseThrow(() -> new ResourceNotFoundException(
-                        "User", "Id", userId));
-        userRepository.delete(user);
-        return ResponseEntity.ok().build();
+    public ResponseEntity<?> deleteUser(Long addressId, Long userId) {
+        return userRepository.findByIdAndAddressId(userId, addressId).map(user -> {
+            userRepository.delete(user);
+            return ResponseEntity.ok().build();
+        }).orElseThrow(() -> new ResourceNotFoundException("Message not found with Id " + userId + " and AddressId " + addressId));
     }
 }

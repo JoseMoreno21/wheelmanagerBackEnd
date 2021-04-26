@@ -45,12 +45,6 @@ public class User extends AuditModel {
     private Date birthDay;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "credit_card_id", nullable = false)
-    @OnDelete(action = OnDeleteAction.CASCADE)
-    @JsonIgnore
-    private CreditCard creditCard;
-
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "address_id", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
     @JsonIgnore
@@ -155,15 +149,6 @@ public class User extends AuditModel {
 
     public User setSubscriptions(List<Subscription> subscriptions) {
         this.subscriptionList = subscriptions;
-        return this;
-    }
-
-    public CreditCard getCreditCard() {
-        return creditCard;
-    }
-
-    public User setCreditCard(CreditCard creditCard) {
-        this.creditCard = creditCard;
         return this;
     }
 
